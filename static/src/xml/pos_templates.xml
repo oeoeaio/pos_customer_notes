@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos.customer_notes.template" xml:space="preserve">
+
+    <t t-name="NotesButton">
+        <t t-set="client" t-value="widget.pos.get_client()"/>
+        <div t-attf-class="control-button button show-notes {{ !!client.notes_by_id ? 'highlighted' : '' }}">
+            <i class="fa fa-pencil-square"></i>
+            Notes
+        </div>
+    </t>
+
+    <t t-name="CustomerNotesPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-customer-notes">
+                <p class="title">Notes</p>
+                <div class="note-list" t-if="!widget.current_note">
+                    <t t-foreach="Object.values(widget.options.notes)" t-as="note">
+                      <div class="button note-button" t-att-data-note-id="note.id">
+                          <i class="fa fa-check" t-if="note.resolved"></i>
+                          <t t-esc="note.text"/>
+                      </div>
+                    </t>
+                    <div class="button note-button" t-att-data-note-id="''">
+                        <i class="fa fa-plus"></i>
+                        New Note
+                    </div>
+                </div>
+                <div class="note-edit" t-if="widget.current_note">
+                    <textarea rows="10" cols="40"><t t-esc="widget.current_note.text"/></textarea>
+                </div>
+                <div class="footer">
+                    <div class="button mark-unresolved" t-if="widget.current_note">
+                        Unresolved
+                    </div>
+                    <div class="button mark-resolved" t-if="widget.current_note">
+                        Resolved
+                    </div>
+                    <div class="button cancel" t-if="!widget.current_note">
+                        Done
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

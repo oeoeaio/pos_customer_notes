@@ -1,0 +1,26 @@
+.pos .popup-customer-notes .note-list .note-button {
+  margin-left: 10px;
+  padding: 0px 10px;
+  float: none;
+  width: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pos .popup-customer-notes .note-list .note-button i.fa-check {
+  float: right;
+  margin: 0px 10px;
+  line-height: 40px;
+  color: #6EC89B;
+}
+
+.pos .payment-screen .payment-buttons .show-notes,
+.pos .payment-screen .payment-buttons .show-notes.highlighted {
+  display: block;
+  margin: 0;
+}
+
+.pos .payment-screen .payment-buttons .show-notes.highlighted {
+  color: green;
+}
