@@ -37,14 +37,14 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
     init: function (parent, args) {
         this._super(parent, args);
         this.current_note = null;
-        this.options.notes = {};
+        this.client = {};
     },
     click_note_button: function(event){
         var note_id = $(event.target).data('note-id');
         if (!note_id){
           this.current_note = { id: '', text:'', resolved: 'false' };
         } else {
-          this.current_note = this.options.notes[note_id];
+          this.current_note = this.client.notes_by_id[note_id];
         };
         this.renderElement();
         this.$('.note-edit textarea').focus();
@@ -53,17 +53,24 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
         options = options || {};
         this._super(options);
 
+        this.client = options.client
+        this.client.notes_by_id = this.client.notes_by_id || {}
         this.current_note = null;
 
         this.renderElement();
+    },
+    mark_resolved: function(){
+        this.save_note(true);
+    },
+    mark_unresolved: function(){
+        this.save_note(false);
     },
     save_note: function(resolved){
         this.current_note.text = this.$('.note-edit textarea').val(),
         this.current_note.resolved = resolved;
 
         // Submit an integer as res_partner_id
-        var client = this.pos.get_client();
-        var fields = _.extend({},this.current_note,{res_partner_id: client.id});
+        var fields = _.extend({},this.current_note,{res_partner_id: this.client.id});
 
         var self = this;
         rpc.query({
@@ -74,11 +81,9 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
         .then(function(note_id){
             if (!self.current_note.id){
               self.current_note.id = note_id;
-              self.options.notes[note_id] = {};
-              client.notes_by_id[note_id] = {};
+              self.client.notes_by_id[note_id] = {};
             }
-            _.extend(self.options.notes[note_id], self.current_note);
-            _.extend(self.pos.get_client().notes_by_id[note_id], self.current_note);
+            _.extend(self.client.notes_by_id[note_id], self.current_note);
             self.current_note = null;
             self.renderElement();
         },function(type,err){
@@ -92,12 +97,6 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
                 'body': error_body,
             });
         });
-    },
-    mark_resolved: function(){
-        this.save_note(true);
-    },
-    mark_unresolved: function(){
-        this.save_note(false);
     },
 });
 gui.define_popup({name:'customernotes', widget: CustomerNotesPopupWidget});

@@ -2,13 +2,11 @@
 <templates id="pos.customer_notes.template" xml:space="preserve">
 
     <t t-name="NotesButton">
-        <t t-set="client" t-value="widget.pos.get_client()"/>
-        <t t-set="note_count" t-value="(!!client ? _.size(client.notes_by_id || {}) : 0)"/>
-        <t t-set="button_class" t-value="(!client ? 'disabled' : (note_count > 0 ? 'highlighted' : ''))"/>
+        <t t-set="button_class" t-value="(widget.client ? (widget.note_count > 0 ? 'highlighted' : '') : 'disabled')"/>
         <div t-attf-class="control-button button show-notes {{ button_class }}">
             <i class="fa fa-pencil-square"></i>
             Notes
-            <t t-if="note_count > 0" t-esc="'(' + note_count + ')'"/>
+            <t t-if="widget.note_count > 0" t-esc="'(' + widget.note_count + ')'"/>
         </div>
     </t>
 

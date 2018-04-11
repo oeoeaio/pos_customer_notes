@@ -6,21 +6,42 @@ odoo.define('pos.customer_notes.button', function (require) {
 
     var NotesButton = screens.ActionButtonWidget.extend({
         template: 'NotesButton',
-        new_note: function(client_id){
-          return { text:'', resolved: 'false', res_partner_id: client_id };
-        },
-        init_client: function(){
-          var client = this.pos.get_client();
-          if (!client) return;
-          client.notes_by_id = client.notes_by_id || {};
-          return client;
+        init: function(parent, options){
+            this._super(parent, options);
+            this.set_client();
+            this.renderElement();
+
+            this.pos.bind('change:selectedClient', function() {
+                this.set_client();
+                this.renderElement();
+            }, this);
         },
         button_click: function(){
-            var client = this.init_client();
-            if (!client) return;
-            this.gui.show_popup('customernotes', {notes: client.notes_by_id});
+            if (!this.set_client()) { return; }
+            this.before_popup_open();
+            this.gui.show_popup('customernotes', {
+                client: this.client,
+                cancel: this.after_popup_close.bind(this), // Called from PopupWidget
+            });
         },
-
+        set_client: function(){
+            this.client = this.pos.get_client();
+            this.count_notes();
+            return this.client;
+        },
+        count_notes: function(){
+            this.note_count = 0;
+            if (!this.client) { return; }
+            this.note_count = _.size(
+                this.client.notes_by_id || {}
+            );
+        },
+        before_popup_open: function(){
+            // Do nothing
+        },
+        after_popup_close: function(){
+            this.renderElement();
+        },
     });
 
     screens.define_action_button({
@@ -32,15 +53,6 @@ odoo.define('pos.customer_notes.button', function (require) {
     });
 
     var PaymentNotesButton = NotesButton.extend({
-        button_click: function(){
-            var client = this.init_client();
-            if (!client) return;
-            this.deactivate_key_events();
-            this.gui.show_popup('customernotes', {
-                notes: client.notes_by_id,
-                cancel: this.reactivate_key_events, // Called from PopupWidget
-            });
-        },
         deactivate_key_events: function(){
             var payment_screen = this.gui.screen_instances['payment'];
             $('body').off('keypress', payment_screen.keyboard_handler);
@@ -54,6 +66,14 @@ odoo.define('pos.customer_notes.button', function (require) {
             $('body').keydown(payment_screen.keyboard_keydown_handler);
             window.document.body.addEventListener('keypress',payment_screen.keyboard_handler);
             window.document.body.addEventListener('keydown',payment_screen.keyboard_keydown_handler);
+        },
+        before_popup_open: function(){
+          this._super();
+          this.deactivate_key_events();
+        },
+        after_popup_close: function(){
+          this._super();
+          this.reactivate_key_events();
         },
     });
 
