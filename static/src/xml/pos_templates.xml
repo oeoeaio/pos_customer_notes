@@ -3,9 +3,12 @@
 
     <t t-name="NotesButton">
         <t t-set="client" t-value="widget.pos.get_client()"/>
-        <div t-attf-class="control-button button show-notes {{ !!client.notes_by_id ? 'highlighted' : '' }}">
+        <t t-set="note_count" t-value="(!!client ? _.size(client.notes_by_id || {}) : 0)"/>
+        <t t-set="button_class" t-value="(!client ? 'disabled' : (note_count > 0 ? 'highlighted' : ''))"/>
+        <div t-attf-class="control-button button show-notes {{ button_class }}">
             <i class="fa fa-pencil-square"></i>
             Notes
+            <t t-if="note_count > 0" t-esc="'(' + note_count + ')'"/>
         </div>
     </t>
 
@@ -14,7 +17,7 @@
             <div class="popup popup-customer-notes">
                 <p class="title">Notes</p>
                 <div class="note-list" t-if="!widget.current_note">
-                    <t t-foreach="Object.values(widget.options.notes)" t-as="note">
+                    <t t-foreach="_.values(widget.client.notes_by_id)" t-as="note">
                       <div class="button note-button" t-att-data-note-id="note.id">
                           <i class="fa fa-check" t-if="note.resolved"></i>
                           <t t-esc="note.text"/>

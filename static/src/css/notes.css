@@ -21,6 +21,8 @@
   margin: 0;
 }
 
-.pos .payment-screen .payment-buttons .show-notes.highlighted {
-  color: green;
+.pos .payment-screen .payment-buttons .show-notes.highlighted,
+.pos .product-screen .control-buttons .show-notes.highlighted {
+  color: #ffffff;
+  background-color: #FB71C6;
 }
