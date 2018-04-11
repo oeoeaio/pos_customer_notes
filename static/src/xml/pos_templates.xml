@@ -2,7 +2,8 @@
 <templates id="pos.customer_notes.template" xml:space="preserve">
 
     <t t-name="NotesButton">
-        <t t-set="button_class" t-value="(widget.client ? (widget.note_count > 0 ? 'highlighted' : '') : 'disabled')"/>
+        <t t-set="unseen" t-value="(widget.note_count > 0 &amp;&amp; !widget.client.notes_seen)"/>
+        <t t-set="button_class" t-value="(widget.client ? (unseen ? 'highlighted' : '') : 'disabled')"/>
         <div t-attf-class="control-button button show-notes {{ button_class }}">
             <i class="fa fa-pencil-square"></i>
             Notes

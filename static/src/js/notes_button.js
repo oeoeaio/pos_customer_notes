@@ -37,9 +37,10 @@ odoo.define('pos.customer_notes.button', function (require) {
             );
         },
         before_popup_open: function(){
-            // Do nothing
+            this.client.notes_seen = true;
         },
         after_popup_close: function(){
+            this.count_notes();
             this.renderElement();
         },
     });
@@ -68,8 +69,8 @@ odoo.define('pos.customer_notes.button', function (require) {
             window.document.body.addEventListener('keydown',payment_screen.keyboard_keydown_handler);
         },
         before_popup_open: function(){
-          this._super();
-          this.deactivate_key_events();
+            this._super();
+            this.deactivate_key_events();
         },
         after_popup_close: function(){
           this._super();
@@ -79,10 +80,10 @@ odoo.define('pos.customer_notes.button', function (require) {
 
     screens.PaymentScreenWidget.include({
         renderElement: function() {
-            this._super();
-            if (this.$('.payment-buttons .show-notes').length) return;
-            var widget = new PaymentNotesButton(this,{});
-            widget.appendTo(this.$('.payment-buttons'));
+          this._super();
+          if (this.$('.payment-buttons .show-notes').length) return;
+          var widget = new PaymentNotesButton(this,{});
+          widget.appendTo(this.$('.payment-buttons'));
         },
     });
 });
