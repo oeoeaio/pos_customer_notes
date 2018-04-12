@@ -10,7 +10,6 @@
     'depends': ['sale','point_of_sale'],
     'data': [
         'views/assets.xml',
-        'views/res_partner_views.xml',
         'views/notes_views.xml',
         'wizard/resolve_notes.xml',
     ],
