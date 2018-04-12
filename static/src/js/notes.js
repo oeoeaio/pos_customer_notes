@@ -13,14 +13,14 @@ var _t = core._t;
 // At POS Startup, load any unresolved customer notes, and add them to the relevant customer
 models.load_models({
     model: 'pos.customer.note',
-    fields: ['text','res_partner_id', 'resolved'],
+    fields: ['text','partner_id', 'resolved'],
     domain: function(self){ return [['resolved','=',false]]; },
     loaded: function(self,notes){
         var partner;
         var note;
         for (var i = 0; i < notes.length; i++){
             note = notes[i];
-            partner = self.db.partner_by_id[note.res_partner_id[0]]
+            partner = self.db.partner_by_id[note.partner_id[0]]
             partner.notes_by_id = partner.notes_by_id || {};
             partner.notes_by_id[note.id] = note;
         }
@@ -71,8 +71,8 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
         this.current_note.text = this.$('.note-edit textarea').val(),
         this.current_note.resolved = resolved;
 
-        // Submit an integer as res_partner_id
-        var fields = _.extend({},this.current_note,{res_partner_id: this.client.id});
+        // Submit an integer as partner_id
+        var fields = _.extend({},this.current_note,{partner_id: this.client.id});
 
         var self = this;
         rpc.query({

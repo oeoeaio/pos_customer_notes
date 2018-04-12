@@ -10,12 +10,12 @@ class Partner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
 
-    notes = fields.One2many('pos.customer.note', 'res_partner_id', 'Notes')
+    notes = fields.One2many('pos.customer.note', 'partner_id', 'Notes')
 
 class Note(models.Model):
     _name = 'pos.customer.note'
 
-    res_partner_id = fields.Many2one('res.partner', string='Customer', ondelete='cascade')
+    partner_id = fields.Many2one('res.partner', string='Customer', ondelete='cascade')
     text = fields.Text('Note')
     resolved = fields.Boolean('Resolved?', default=False)
 

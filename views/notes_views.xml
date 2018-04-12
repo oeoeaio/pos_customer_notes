@@ -5,7 +5,7 @@
         <field name="model">pos.customer.note</field>
         <field name="arch" type="xml">
             <search string="Search Notes">
-                <field name="res_partner_id"/>
+                <field name="partner_id"/>
                 <field name="text"/>
                 <filter name="filter_to_resolved" string="Resolved" domain="[('resolved', '=', True)]"/>
                 <filter name="filter_to_unresolved" string="Unresolved" domain="[('resolved', '=', False)]"/>
@@ -44,7 +44,7 @@
         <field name="model">pos.customer.note</field>
         <field name="arch" type="xml">
             <tree string="Customer Notes" editable="bottom">
-                <field name="res_partner_id"/>
+                <field name="partner_id"/>
                 <field name="resolved"/>
                 <field name="text"/>
                 <field name="create_date" readonly="1"/>
