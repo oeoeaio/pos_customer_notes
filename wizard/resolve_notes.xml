@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="resolve_note_form">
+        <field name="name">resolve_note</field>
+        <field name="model">pos.note.resolver</field>
+        <field name="arch" type="xml">
+            <form string="Resolve Notes">
+                <separator string="Are you sure you want to mark the selected note(s) as resolved?" colspan="4" />
+                <footer>
+                    <button name="run" string="Mark As Resolved" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        name="Mark As Resolved"
+        res_model="pos.note.resolver"
+        src_model="res.partner.note"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="action_resolve_note"/>
+
+    <record model="ir.ui.view" id="unresolve_note_form">
+        <field name="name">unresolve_note</field>
+        <field name="model">pos.note.unresolver</field>
+        <field name="arch" type="xml">
+            <form string="Unresolve Notes">
+                <separator string="Are you sure you want to mark the selected note(s) as unresolved?" colspan="4" />
+                <footer>
+                    <button name="run" string="Mark As Unresolved" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        name="Mark As Unresolved"
+        res_model="pos.note.unresolver"
+        src_model="res.partner.note"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        id="action_unresolve_note"/>
+</odoo>

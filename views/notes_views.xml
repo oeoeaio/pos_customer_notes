@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_note_form" model="ir.ui.view">
+        <field name="name">res.partner.note.form</field>
+        <field name="model">res.partner.note</field>
+        <field name="arch" type="xml">
+            <form string="Point Of Sale Notes">
+                <header>
+                </header>
+                <sheet>
+                <group col="4" colspan="4" name="order_fields">
+                    <field name="res_partner_id" domain="[('customer', '=', True)]" context="{'search_default_customer':1}"/>
+                    <field name="create_date"/>
+                    <field name="resolved"/>
+                    <field name="write_date"/>
+                </group>
+                <notebook colspan="4">
+                    <page string="Note">
+                        <field name="text"/>
+                    </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pos_note_form" model="ir.actions.act_window">
+        <field name="name">Notes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.note</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="False"/>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new Customer Note.
+            </p><p>
+                Use this menu to view and load customer notes for POS.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_pos_note"
+        name="Notes"
+        parent="point_of_sale.menu_point_of_sale"
+        action="action_pos_note_form"
+        sequence="8"
+        groups="point_of_sale.group_pos_manager,point_of_sale.group_pos_user"/>
+
+
+    <record id="view_pos_note_tree" model="ir.ui.view">
+        <field name="name">pos.notes.tree</field>
+        <field name="model">res.partner.note</field>
+        <field name="arch" type="xml">
+            <tree string="POS Pre-Orders">
+                <field name="res_partner_id"/>
+                <field name="resolved"/>
+                <field name="text"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

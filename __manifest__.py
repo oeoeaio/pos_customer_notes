@@ -8,7 +8,12 @@
     'summary': 'Load resolvable customer notes into the POS interface',
     'description': "",
     'depends': ['sale','point_of_sale'],
-    'data': ['views/res_partner_views.xml','views/assets.xml'],
+    'data': [
+        'views/assets.xml',
+        'views/res_partner_views.xml',
+        'views/notes_views.xml',
+        'wizard/resolve_notes.xml',
+    ],
     'qweb': ['static/src/xml/pos_templates.xml'],
     'images': [],
     'installable': True,
