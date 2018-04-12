@@ -6,6 +6,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
 .pos .popup-customer-notes .note-list .note-button i.fa-check {
@@ -24,5 +25,5 @@
 .pos .payment-screen .payment-buttons .show-notes.highlighted,
 .pos .product-screen .control-buttons .show-notes.highlighted {
   color: #ffffff;
-  background-color: #FB71C6;
+  background-color: #B898CC; /* Alternative: #FB71C6;*/
 }

@@ -33,6 +33,7 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
         'click .mark-resolved': 'mark_resolved',
         'click .mark-unresolved': 'mark_unresolved',
         'click .note-button': 'click_note_button',
+        'click .new-note-button': 'click_new_note_button',
     }),
     init: function (parent, args) {
         this._super(parent, args);
@@ -41,11 +42,12 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
     },
     click_note_button: function(event){
         var note_id = $(event.target).data('note-id');
-        if (!note_id){
-          this.current_note = { id: '', text:'', resolved: 'false' };
-        } else {
-          this.current_note = this.client.notes_by_id[note_id];
-        };
+        this.current_note = this.client.notes_by_id[note_id];
+        this.renderElement();
+        this.$('.note-edit textarea').focus();
+    },
+    click_new_note_button: function(event){
+        this.current_note = { id: '', text:'', resolved: 'false' };
         this.renderElement();
         this.$('.note-edit textarea').focus();
     },
