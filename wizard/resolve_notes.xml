@@ -6,7 +6,7 @@
         <field name="model">pos.note.resolver</field>
         <field name="arch" type="xml">
             <form string="Resolve Notes">
-                <separator string="Are you sure you want to mark the selected note(s) as resolved?" colspan="4" />
+                Are you sure you want to mark the selected note(s) as resolved?
                 <footer>
                     <button name="run" string="Mark As Resolved" type="object" class="btn-primary"/>
                     <button special="cancel" string="Cancel" class="btn-default"/>
@@ -29,7 +29,7 @@
         <field name="model">pos.note.unresolver</field>
         <field name="arch" type="xml">
             <form string="Unresolve Notes">
-                <separator string="Are you sure you want to mark the selected note(s) as unresolved?" colspan="4" />
+                Are you sure you want to mark the selected note(s) as unresolved?
                 <footer>
                     <button name="run" string="Mark As Unresolved" type="object" class="btn-primary"/>
                     <button special="cancel" string="Cancel" class="btn-default"/>
