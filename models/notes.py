@@ -21,8 +21,6 @@ class Note(models.Model):
 
     @api.model
     def create_from_ui(self, note):
-        _logger.info("DOING SOME STUFF")
-        _logger.info("note: %s", note)
         note_id = note.pop('id', False)
         if note_id:  # Modifying existing note
             self.browse(note_id).write(note)
