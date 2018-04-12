@@ -10,10 +10,10 @@ class Partner(models.Model):
     _name = 'res.partner'
     _inherit = 'res.partner'
 
-    notes = fields.One2many('res.partner.note', 'res_partner_id', 'Notes')
+    notes = fields.One2many('pos.customer.note', 'res_partner_id', 'Notes')
 
-class PartnerNote(models.Model):
-    _name = 'res.partner.note'
+class Note(models.Model):
+    _name = 'pos.customer.note'
 
     res_partner_id = fields.Many2one('res.partner', string='Customer', ondelete='cascade')
     text = fields.Text('Note')

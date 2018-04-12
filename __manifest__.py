@@ -7,7 +7,7 @@
     'sequence': 10,
     'summary': 'Load resolvable customer notes into the POS interface',
     'description': "",
-    'depends': ['sale','point_of_sale'],
+    'depends': ['point_of_sale'],
     'data': [
         'views/assets.xml',
         'views/notes_views.xml',

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates id="pos.customer_notes.template" xml:space="preserve">
+<templates id="pos.customer.notes.template" xml:space="preserve">
 
     <t t-name="NotesButton">
         <t t-set="unseen" t-value="(widget.note_count > 0 &amp;&amp; !widget.client.notes_seen)"/>

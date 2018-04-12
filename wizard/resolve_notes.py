@@ -20,7 +20,7 @@ class Resolve(models.TransientModel):
 
 
 class NoteResolver(Resolve):
-    _name = 'pos.note.resolver'
+    _name = 'pos.customer.note.resolver'
 
     @api.multi
     def _run(self, records):
@@ -30,7 +30,7 @@ class NoteResolver(Resolve):
         return {}
 
 class NoteUnresolver(Resolve):
-    _name = 'pos.note.unresolver'
+    _name = 'pos.customer.note.unresolver'
 
     @api.multi
     def _run(self, records):

@@ -12,7 +12,7 @@ var _t = core._t;
 
 // At POS Startup, load any unresolved customer notes, and add them to the relevant customer
 models.load_models({
-    model: 'res.partner.note',
+    model: 'pos.customer.note',
     fields: ['text','res_partner_id', 'resolved'],
     domain: function(self){ return [['resolved','=',false]]; },
     loaded: function(self,notes){
@@ -76,7 +76,7 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
 
         var self = this;
         rpc.query({
-            model: 'res.partner.note',
+            model: 'pos.customer.note',
             method: 'create_from_ui',
             args: [fields],
         })
