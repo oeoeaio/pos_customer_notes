@@ -12,6 +12,7 @@
         'views/assets.xml',
         'views/notes_views.xml',
         'wizard/resolve_notes.xml',
+        'security/ir.model.access.csv',
     ],
     'qweb': ['static/src/xml/pos_templates.xml'],
     'images': [],
