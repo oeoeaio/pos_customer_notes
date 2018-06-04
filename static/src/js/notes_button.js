@@ -8,40 +8,35 @@ odoo.define('pos.customer_notes.button', function (require) {
         template: 'NotesButton',
         init: function(parent, options){
             this._super(parent, options);
-            this.set_client();
-            this.renderElement();
+            this.update_note_count();
 
             this.pos.bind('change:selectedClient', function() {
-                this.set_client();
-                this.renderElement();
+                this.update_note_count();
             }, this);
         },
         button_click: function(){
-            if (!this.set_client()) { return; }
+            if (!this.client) { return; }
             this.before_popup_open();
             this.gui.show_popup('customernotes', {
                 client: this.client,
                 cancel: this.after_popup_close.bind(this), // Called from PopupWidget
             });
         },
-        set_client: function(){
+        update_note_count: function(){
             this.client = this.pos.get_client();
-            this.count_notes();
-            return this.client;
-        },
-        count_notes: function(){
             this.note_count = 0;
-            if (!this.client) { return; }
-            this.note_count = _.size(
-                this.client.notes_by_id || {}
-            );
+            if (this.client) {
+              this.note_count = _.size(
+                  this.client.notes_by_id || {}
+              );
+            }
+            this.renderElement();
         },
         before_popup_open: function(){
             this.client.notes_seen = true;
         },
         after_popup_close: function(){
-            this.count_notes();
-            this.renderElement();
+            this.update_note_count();
         },
     });
 
@@ -81,9 +76,13 @@ odoo.define('pos.customer_notes.button', function (require) {
     screens.PaymentScreenWidget.include({
         renderElement: function() {
           this._super();
-          if (this.$('.payment-buttons .show-notes').length) return;
-          var widget = new PaymentNotesButton(this,{});
-          widget.appendTo(this.$('.payment-buttons'));
+          this.notes_button = new PaymentNotesButton(this,{});
+          this.notes_button.appendTo(this.$('.payment-buttons'));
         },
+        show: function(){
+            this.notes_button.update_note_count();
+            this._super();
+        },
+
     });
 });
