@@ -35,6 +35,10 @@
                         <i class="fa fa-check"></i>
                         Resolved
                     </div>
+                    <div class="button back" t-if="widget.current_note">
+                        <i class="fa fa-angle-double-left"></i>
+                        Back
+                    </div>
                     <div class="button cancel" t-if="!widget.current_note">
                         <i class="fa fa-check"></i>
                         Done

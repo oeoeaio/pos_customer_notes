@@ -30,6 +30,7 @@ models.load_models({
 var CustomerNotesPopupWidget = PopupWidget.extend({
     template: 'CustomerNotesPopupWidget',
     events: _.extend({}, PopupWidget.prototype.events, {
+        'click .back': 'back',
         'click .mark-resolved': 'mark_resolved',
         'click .mark-unresolved': 'mark_unresolved',
         'click .note-button': 'click_note_button',
@@ -59,6 +60,10 @@ var CustomerNotesPopupWidget = PopupWidget.extend({
         this.client.notes_by_id = this.client.notes_by_id || {}
         this.current_note = null;
 
+        this.renderElement();
+    },
+    back: function(){
+        this.current_note = null;
         this.renderElement();
     },
     mark_resolved: function(){
