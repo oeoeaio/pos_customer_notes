@@ -8,7 +8,6 @@ _logger = logging.getLogger(__name__)
 class Resolve(models.TransientModel):
     _register = False
 
-    @api.multi
     def run(self):
         context = dict(self._context or {})
         active_model = context.get('active_model', False)
@@ -22,7 +21,6 @@ class Resolve(models.TransientModel):
 class NoteResolver(Resolve):
     _name = 'pos.customer.note.resolver'
 
-    @api.multi
     def _run(self, records):
         _logger.info(records)
         for record in records:
@@ -32,7 +30,6 @@ class NoteResolver(Resolve):
 class NoteUnresolver(Resolve):
     _name = 'pos.customer.note.unresolver'
 
-    @api.multi
     def _run(self, records):
         _logger.info(records)
         for record in records:
