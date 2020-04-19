@@ -18,7 +18,7 @@
     <act_window
         name="Mark As Resolved"
         res_model="pos.customer.note.resolver"
-        src_model="pos.customer.note"
+        binding_model="pos.customer.note"
         view_mode="form"
         target="new"
         id="action_resolve_note"/>
@@ -40,7 +40,7 @@
     <act_window
         name="Mark As Unresolved"
         res_model="pos.customer.note.unresolver"
-        src_model="pos.customer.note"
+        binding_model="pos.customer.note"
         view_mode="form"
         target="new"
         id="action_unresolve_note"/>
