@@ -53,15 +53,11 @@ odoo.define('pos.customer_notes.button', function (require) {
             var payment_screen = this.gui.screen_instances['payment'];
             $('body').off('keypress', payment_screen.keyboard_handler);
             $('body').off('keydown', payment_screen.keyboard_keydown_handler);
-            window.document.body.removeEventListener('keypress',payment_screen.keyboard_handler);
-            window.document.body.removeEventListener('keydown',payment_screen.keyboard_keydown_handler);
         },
         reactivate_key_events: function(){
             var payment_screen = this.gui.screen_instances['payment'];
             $('body').keypress(payment_screen.keyboard_handler);
             $('body').keydown(payment_screen.keyboard_keydown_handler);
-            window.document.body.addEventListener('keypress',payment_screen.keyboard_handler);
-            window.document.body.addEventListener('keydown',payment_screen.keyboard_keydown_handler);
         },
         before_popup_open: function(){
             this._super();
