@@ -9,12 +9,19 @@
     'description': "",
     'depends': ['point_of_sale'],
     'data': [
-        'views/assets.xml',
         'views/notes_views.xml',
         'wizard/resolve_notes.xml',
         'security/ir.model.access.csv',
     ],
-    'qweb': ['static/src/xml/pos_templates.xml'],
+    'assets': {
+        'point_of_sale.assets': [
+            'pos_customer_notes/static/src/css/**/*',
+            'pos_customer_notes/static/src/js/**/*',
+        ],
+        'web.assets_qweb': [
+            'pos_customer_notes/static/src/xml/**/*',
+        ],
+    },
     'images': [],
     'installable': True,
     'application': False,
