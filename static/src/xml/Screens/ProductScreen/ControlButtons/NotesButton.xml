@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos.customer.notes.template" xml:space="preserve">
+
+    <t t-name="NotesButton" owl="1">
+        <t t-set="unseen" t-value="(state.noteCount > 0 &amp;&amp; !client.notesSeen)"/>
+        <t t-set="button_class" t-value="(client ? (unseen ? 'highlighted' : '') : 'disabled')"/>
+        <div t-attf-class="control-button button show-notes {{ button_class }}">
+            <i class="fa fa-pencil-square"></i>
+            Notes
+            <t t-if="state.noteCount > 0" t-esc="'(' + state.noteCount + ')'"/>
+        </div>
+    </t>
+</templates>

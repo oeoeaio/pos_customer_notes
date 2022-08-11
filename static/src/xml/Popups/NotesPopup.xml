@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos.customer.notes.template" xml:space="preserve">
+
+    <t t-name="NotesPopup" owl="1">
+        <div class="modal-dialog">
+            <div class="popup popup-customer-notes">
+                <p class="title">Notes</p>
+                <div class="note-list" t-if="!state.currentNote">
+                    <t t-foreach="clientNotes" t-as="note" t-key="note.id">
+                      <div class="button note-button" t-on-click="trigger('click-note-button', {noteId: note.id})">
+                          <i class="fa fa-check" t-if="note.resolved"></i>
+                          <t t-esc="note.text"/>
+                      </div>
+                    </t>
+                </div>
+                <div class="note-edit" t-if="state.currentNote">
+                    <textarea rows="10" cols="40" t-model="state.buffer"></textarea>
+                </div>
+                <div class="footer">
+                    <div class="button mark-unresolved" t-if="state.currentNote" t-on-click="markUnresolved">
+                        <i class="fa fa-exclamation"></i>
+                        Unresolved
+                    </div>
+                    <div class="button mark-resolved" t-if="state.currentNote" t-on-click="markResolved">
+                        <i class="fa fa-check"></i>
+                        Resolved
+                    </div>
+                    <div class="button" t-if="state.currentNote" t-on-click="cancel">
+                        <i class="fa fa-angle-double-left"></i>
+                        Back
+                    </div>
+                    <div class="button" t-if="!state.currentNote" t-on-click="confirm">
+                        <i class="fa fa-check"></i>
+                        Done
+                    </div>
+                    <div class="button" t-if="!state.currentNote" t-on-click="clickNewNoteButton">
+                        <i class="fa fa-plus"></i>
+                        New Note
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
